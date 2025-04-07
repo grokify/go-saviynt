@@ -10,9 +10,9 @@ This is a Go helper for the [Saviynt API](https://saviynt.com/api-reference).
 
 There is some example code in the [`cmd`](`cmd`) folder.
 
- [build-status-svg]: https://github.com/grokify/go-saviynt/workflows/test/badge.svg
- [build-status-url]: https://github.com/grokify/go-saviynt/actions/workflows/test.yaml
- [lint-status-svg]: https://github.com/grokify/go-saviynt/workflows/lint/badge.svg
+ [build-status-svg]: https://github.com/grokify/go-saviynt/actions/workflows/ci.yaml/badge.svg?branch=main
+ [build-status-url]: https://github.com/grokify/go-saviynt/actions/workflows/ci.yaml
+ [lint-status-svg]: https://github.com/grokify/go-saviynt/actions/workflows/lint.yaml/badge.svg?branch=main
  [lint-status-url]: https://github.com/grokify/go-saviynt/actions/workflows/lint.yaml
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/go-saviynt
  [goreport-url]: https://goreportcard.com/report/github.com/grokify/go-saviynt
