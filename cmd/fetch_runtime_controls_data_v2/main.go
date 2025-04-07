@@ -12,7 +12,7 @@ import (
 	"github.com/grokify/go-saviynt/auditlog"
 	"github.com/grokify/go-saviynt/auditlog/siem"
 	"github.com/grokify/mogo/config"
-	"github.com/grokify/mogo/encoding/jsonutil"
+	"github.com/grokify/mogo/encoding/jsonutil/jsonraw"
 	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/type/maputil"
@@ -78,7 +78,7 @@ func main() {
 		logutil.FatalErr(err, "ioreadall")
 
 		if resp.StatusCode < 300 {
-			b, err = jsonutil.IndentBytes(b, "", "  ")
+			b, err = jsonraw.IndentBytes(b, "", "  ")
 			logutil.FatalErr(err, "statuscode_lt_300")
 		}
 		flagWriteJSON := true

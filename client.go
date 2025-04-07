@@ -96,7 +96,7 @@ func GetTokenPassword(ctx context.Context, baseURL, username, password string, u
 			},
 		}
 	}
-	if resp, err := httpsimple.Do(ctx, sreq); err != nil {
+	if resp, err := sreq.Do(ctx); err != nil {
 		return nil, err
 	} else if resp.StatusCode >= 300 {
 		return nil, fmt.Errorf("login api status code is (%d)", resp.StatusCode)
@@ -127,7 +127,7 @@ func GetTokenRefresh(ctx context.Context, baseURL, refreshToken string) (*oauth2
 			"refresh_token": []string{refreshToken}},
 	}
 
-	if resp, err := httpsimple.Do(ctx, sreq); err != nil {
+	if resp, err := sreq.Do(ctx); err != nil {
 		return nil, err
 	} else if resp.StatusCode >= 300 {
 		return nil, fmt.Errorf("login api status code is (%d)", resp.StatusCode)

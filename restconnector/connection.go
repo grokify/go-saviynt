@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/grokify/mogo/encoding/jsonutil"
+	"github.com/grokify/mogo/encoding/jsonutil/jsonraw"
 	"github.com/grokify/mogo/type/maputil"
 	"github.com/grokify/mogo/type/slicesutil"
 	"github.com/grokify/mogo/type/stringsutil"
@@ -157,7 +158,7 @@ func (c Connection) WriteExternalAttributeJSONFiles(dir string, templateNameAsDi
 				outfileBase = strings.Join([]string{tmplName, outfileBase}, ".")
 			}
 		*/
-		err := jsonutil.MarshalFileIndentBytes(outfileExtAttrJSON+".json", []byte(ea.EncryptedAttributeValue), "", "  ", 0600)
+		err := jsonraw.MarshalFileIndentBytes(outfileExtAttrJSON+".json", []byte(ea.EncryptedAttributeValue), "", "  ", 0600)
 		//err = os.WriteFile(outfileExtAttrJSON, out, 0600)
 		if err != nil {
 			return err
