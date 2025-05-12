@@ -1,6 +1,7 @@
 package saviynt
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"strings"
@@ -83,7 +84,7 @@ type TransportObjectsToExport struct {
 	SecuritySystems []string `json:"securitySystems,omitempty"`
 }
 
-func (svc *TransportService) ExportPackage(opts ExportPackageOpts) (*httpsimple.Request, *http.Response, error) {
+func (svc *TransportService) ExportPackage(ctx context.Context, opts ExportPackageOpts) (*httpsimple.Request, *http.Response, error) {
 	if svc.client == nil {
 		return nil, nil, ErrClientNotSet
 	} else if svc.client.SimpleClient == nil {
@@ -101,7 +102,7 @@ func (svc *TransportService) ExportPackage(opts ExportPackageOpts) (*httpsimple.
 		Body:     opts2,
 	}
 
-	resp, err := svc.client.SimpleClient.Do(sreq)
+	resp, err := svc.client.SimpleClient.Do(ctx, sreq)
 	return &sreq, resp, err
 }
 
@@ -114,7 +115,7 @@ type ImportPackageOpts struct {
 	BusinessJustification string `json:"businessjustification,omitempty"`
 }
 
-func (svc *TransportService) ImportPackage(opts ImportPackageOpts) (*httpsimple.Request, *http.Response, error) {
+func (svc *TransportService) ImportPackage(ctx context.Context, opts ImportPackageOpts) (*httpsimple.Request, *http.Response, error) {
 	if svc.client == nil {
 		return nil, nil, ErrClientNotSet
 	} else if svc.client.SimpleClient == nil {
@@ -128,6 +129,6 @@ func (svc *TransportService) ImportPackage(opts ImportPackageOpts) (*httpsimple.
 		Body:     opts,
 	}
 
-	resp, err := svc.client.SimpleClient.Do(sreq)
+	resp, err := svc.client.SimpleClient.Do(ctx, sreq)
 	return &sreq, resp, err
 }

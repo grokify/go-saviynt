@@ -22,8 +22,10 @@ func main() {
 	_, err := config.LoadDotEnv([]string{".env"}, 1)
 	logutil.FatalErr(err, "load_dot_env")
 
+	ctx := context.Background()
+
 	clt, err := saviynt.NewClient(
-		context.Background(),
+		ctx,
 		os.Getenv(saviynt.EnvSaviyntServerURL),
 		saviynt.RelURLAPI,
 		os.Getenv(saviynt.EnvSaviyntUsername),
@@ -33,7 +35,8 @@ func main() {
 	flagGetUser := true
 
 	if flagGetUser {
-		usr, _, resp, err := clt.UsersAPI.GetUserByUsername(os.Getenv(saviynt.EnvSaviyntUsername))
+		ctx := context.Background()
+		usr, _, resp, err := clt.UsersAPI.GetUserByUsername(ctx, os.Getenv(saviynt.EnvSaviyntUsername))
 		logutil.FatalErr(err, "GetUserByUsername")
 
 		b, err := io.ReadAll(resp.Body)
@@ -57,6 +60,7 @@ func main() {
 
 	// DATE_FORMAT(ua.ACCESSTIME,  '%Y-%m-%dT%TZ')
 	req, resp, err := clt.AnalyticsAPI.FetchRuntimeControlsDataV2(
+		ctx,
 		os.Getenv("SAVIYNT_QUERY_NAME"),
 		"", "",
 		attrs,

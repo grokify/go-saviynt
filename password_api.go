@@ -1,6 +1,7 @@
 package saviynt
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 	"strings"
@@ -18,11 +19,12 @@ func NewPasswordService(client *Client) *PasswordService {
 	return &PasswordService{client: client}
 }
 
-func (svc *PasswordService) ChangePassword(opts ChangePasswordOpts) (*http.Response, error) {
+func (svc *PasswordService) ChangePassword(ctx context.Context, opts ChangePasswordOpts) (*http.Response, error) {
 	if svc.client == nil {
 		return nil, ErrClientNotSet
 	}
 	return svc.client.SimpleClient.Do(
+		ctx,
 		httpsimple.Request{
 			Method:   http.MethodPost,
 			URL:      svc.client.BuildURL(RelURLPasswordChange),

@@ -1,6 +1,7 @@
 package saviynt
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -55,7 +56,7 @@ func (ud *UserDetails) SCIMUser() (scim.User, error) {
 	return usr, nil
 }
 
-func (svc *UsersService) GetUserByUsername(username string) (*GetUserResponse, []byte, *http.Response, error) {
+func (svc *UsersService) GetUserByUsername(ctx context.Context, username string) (*GetUserResponse, []byte, *http.Response, error) {
 	if svc.client == nil {
 		return nil, []byte{}, nil, ErrClientNotSet
 	} else if svc.client.SimpleClient == nil {
@@ -69,7 +70,7 @@ func (svc *UsersService) GetUserByUsername(username string) (*GetUserResponse, [
 			"username": username,
 		},
 	}
-	if resp, err := svc.client.SimpleClient.Do(sreq); err != nil {
+	if resp, err := svc.client.SimpleClient.Do(ctx, sreq); err != nil {
 		return nil, []byte{}, resp, err
 	} else if b, err := io.ReadAll(resp.Body); err != nil {
 		return nil, b, resp, err

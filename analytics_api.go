@@ -1,6 +1,7 @@
 package saviynt
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -22,7 +23,7 @@ func NewAnalyticsService(client *Client) *AnalyticsService {
 
 // FetchRuntimeControlsDataV2 returns data from the `fetchRuntimeControlsDataV2` API endpoint.
 // `analyticsName` is required. `requestor`, and `analyticsID` are optional.
-func (svc *AnalyticsService) FetchRuntimeControlsDataV2(analyticsName, requestor, analyticsID string, attrs map[string]any, limit, offset uint) (*httpsimple.Request, *http.Response, error) {
+func (svc *AnalyticsService) FetchRuntimeControlsDataV2(ctx context.Context, analyticsName, requestor, analyticsID string, attrs map[string]any, limit, offset uint) (*httpsimple.Request, *http.Response, error) {
 	// func (c Client) GetAuditLogRuntimeControlsData(name string, minutes, limit, offset uint) (*http.Response, error) {
 	if svc.client == nil {
 		return nil, nil, ErrClientNotSet
@@ -49,7 +50,7 @@ func (svc *AnalyticsService) FetchRuntimeControlsDataV2(analyticsName, requestor
 		},
 	}
 
-	resp, err := svc.client.SimpleClient.Do(sreq)
+	resp, err := svc.client.SimpleClient.Do(ctx, sreq)
 	return &sreq, resp, err
 }
 

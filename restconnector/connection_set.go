@@ -71,7 +71,10 @@ func (set *ConnectionSet) ExtendedAttributes() *histogram.HistogramSet {
 
 func (set *ConnectionSet) ExtendedAttributesWriteXLSX(filename string) error {
 	hs := set.ExtendedAttributes()
-	return hs.WriteXLSXPivot(filename, "Attributes", "Connector", true, false, false, true)
+	return hs.WriteXLSXPivot(filename, "Attributes", "Connector", &histogram.SetTablePivotOpts{
+		ColTotalRight:  true,
+		RowTotalBottom: true,
+	})
 }
 
 func (set *ConnectionSet) init() {

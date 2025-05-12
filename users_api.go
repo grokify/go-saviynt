@@ -1,6 +1,7 @@
 package saviynt
 
 import (
+	"context"
 	"net/http"
 	"strings"
 
@@ -19,7 +20,7 @@ func (svc *UsersService) GetUserAccessDetails() {
 
 }
 
-func (svc *UsersService) UpdateUsers(matchField, matchValue string, attrs map[string]any) (*httpsimple.Request, *http.Response, error) {
+func (svc *UsersService) UpdateUsers(ctx context.Context, matchField, matchValue string, attrs map[string]any) (*httpsimple.Request, *http.Response, error) {
 	if svc.client == nil {
 		return nil, nil, ErrClientNotSet
 	} else if svc.client.SimpleClient == nil {
@@ -42,6 +43,6 @@ func (svc *UsersService) UpdateUsers(matchField, matchValue string, attrs map[st
 		BodyType: httpsimple.BodyTypeJSON,
 		Body:     attrs,
 	}
-	resp, err := svc.client.SimpleClient.Do(sreq)
+	resp, err := svc.client.SimpleClient.Do(ctx, sreq)
 	return &sreq, resp, err
 }
