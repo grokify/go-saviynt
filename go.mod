@@ -6,7 +6,7 @@ require (
 	github.com/grokify/goauth v0.23.9
 	github.com/grokify/gocharts/v2 v2.23.1
 	github.com/grokify/mogo v0.68.5
-	golang.org/x/oauth2 v0.29.0
+	golang.org/x/oauth2 v0.30.0
 )
 
 require (
